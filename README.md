@@ -1,42 +1,51 @@
-# FedNest: Federated Bilevel, Minimax, and Compositional Optimization
+# FedNest : Federated Bilevel, Minimax, and Compositional Optimization
 
 ![alt ](figs/fig1.png)
 
-This directory contains source code for evaluating federated bilevel learning with different optimizers on various models and tasks.  The code was originally developed for the paper [*FedNest: Federated Bilevel, Minimax, and Compositional Optimization*](https://arxiv.org/abs/2205.02215), in ICML 2022. 
+This directory contains source code for evaluating federated bilevel learning with different optimizers on various models and tasks.  In federated bilevel learning, we consider the following nested optimization problem as depicted in Figure 1:
+$$\min_{x \in \mathbb{R}^{d_1}}~f(x)=\frac{1}{m} \sum_{i=1}^{m}~f_{i}(x,y^*(x))$$
 
-The federated code is adopted from [shaoxiongji's](https://github.com/shaoxiongji/federated-learning) implenmentation under MIT license. The bilevel implenmentation follows the algorithm of [*Optimizing Millions of Hyperparameters by Implicit Differentiation (Jonathan Lorraine, Paul Vicol, David Duvenaud)*](https://arxiv.org/abs/1911.02590). The parametric loss tuning experiments on imbalanced dataset follows the loss function design idea of [*AutoBalance: Optimized Loss Functions for
-Imbalanced Data(Mingchen Li
-, Xuechen Zhang, Christos Thrampoulidis, Jiasi Chen, Samet Oymak)*](https://openreview.net/pdf?id=ebQXflQre5a), but we only use MNIST in imbalanced loss function design.
+$$\text{subj. to  }  y^*(x)\in\min_{y\in \mathbb{R}^{d_2}}\frac{1}{m}\sum_{i=1}^{m} g_i(x,y).$$
+
+The code was originally developed for the paper [*FedNest: Federated Bilevel, Minimax, and Compositional Optimization*](https://arxiv.org/abs/2205.02215), in ICML 2022. The federated code is adopted from [shaoxiongji's](https://github.com/shaoxiongji/federated-learning) implenmentation under MIT license. 
+
+
+- The bilevel implenmentation follows the algorithm of 
+[*Optimizing Millions of Hyperparameters by Implicit Differentiation (Jonathan Lorraine, Paul Vicol, David Duvenaud)*](https://arxiv.org/abs/1911.02590). 
+- The parametric loss tuning experiments on imbalanced dataset follows the loss function design idea of 
+[*AutoBalance: Optimized Loss Functions for Imbalanced Data(Mingchen Li, Xuechen Zhang, Christos Thrampoulidis, Jiasi Chen, Samet Oymak)*](https://openreview.net/pdf?id=ebQXflQre5a), but we only use MNIST in imbalanced loss function design. 
 
 Note: The scripts will be slow without the implementation of parallel computing. 
 
-## Requirements
+# Requirements
 python>=3.6  
 pytorch>=0.4
 
-## Reproduce Run
+# Reproducing Results on FL Benchmark Tasks
 
-### Figure 2
+## Hyper-Representation Learning
 ![alt](figs/fig2.png)
 
 To reproduce the hyper-representation experiments on MNIST dataset, the [**script**](reproduce/fig2.sh) provides the setup. After running this script, use following command to generate the corresponding figure.
 >python reproduce/fig2.py
 
-### Figure 3
-![alt](figs/fig3.png)
+## Loss Function Tuning on Imbalanced Dataset
+![alt](figs/fig31.png)
+Figure 3: Loss function tuning on a 3-layer MLP and imbalanced MNIST dataset to maximize class-balanced test accuracy. The brown dashed line is the accuracy on [*non-federated bilevel optimization*](https://openreview.net/pdf?id=ebQXflQre5a), and the  black dashed line is the accuracy without tuning the loss function.
+
 
 To reproduce the imbalanced learning experiments on MNIST dataset, the [**script**](reproduce/fig3.sh) provides the setup. After running this script, use following command to generate the corresponding figure.
 >python reproduce/fig3.py
 
 
-### Figure 4
+## Federated Minimax Problem
 ![alt](figs/fig4.png)
 
 For Figure 4, directly runing the jupyter notebook file [minmax_synthetic.ipynb](minmax_synthetic.ipynb) will generate the result.
 
 
 
-## Customize Run
+# Customize Run
 
 The hyper-representation experiments are produced by:
 > python [main_hr.py](main_hr.py)
