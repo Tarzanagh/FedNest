@@ -7,14 +7,16 @@ $$\min_{x \in \mathbb{R}^{d_1}}~f(x)=\frac{1}{m} \sum_{i=1}^{m}~f_{i}(x,y^*(x))$
 
 $$\text{subj. to  }  y^*(x)\in \text{arg}min_{y\in \mathbb{R}^{d_2}}\frac{1}{m}\sum_{i=1}^{m} g_i(x,y).$$
 
-The code was originally developed for the paper [*FedNest: Federated Bilevel, Minimax, and Compositional Optimization*](https://arxiv.org/abs/2205.02215), in ICML 2022. The federated code is adopted from [shaoxiongji's](https://github.com/shaoxiongji/federated-learning) implenmentation under MIT license. 
+The code was originally developed for the paper
+ "FedNest: Federated Bilevel, Minimax, and Compositional Optimization" ([arXiv link](https://arxiv.org/abs/2205.02215)) ([ICML 2022 link](https://icml.cc/Conferences/2022/Schedule?showEvent=17792)).
+The federated code is adopted from [shaoxiongji's](https://github.com/shaoxiongji/federated-learning) implenmentation under MIT license. 
 
 
 - The bilevel implenmentation follows the algorithm of 
 [*Optimizing Millions of Hyperparameters by Implicit Differentiation (Jonathan Lorraine, Paul Vicol, David Duvenaud)*](https://arxiv.org/abs/1911.02590). 
 - The parametric loss tuning experiments on imbalanced dataset follows the loss function design idea of 
-[*AutoBalance: Optimized Loss Functions for Imbalanced Data(Mingchen Li, Xuechen Zhang, Christos Thrampoulidis, Jiasi Chen, Samet Oymak)*](https://openreview.net/pdf?id=ebQXflQre5a), but we only use MNIST in imbalanced loss function design. 
-- We conduct experiments on a synthetic minimax problem, i.e. the above federated bilevel problem with $g_i(x,y):=-f_i(x,y)$ for all $i \in [m]$, where 
+[*AutoBalance: Optimized Loss Functions for Imbalanced Data (Mingchen Li, Xuechen Zhang, Christos Thrampoulidis, Jiasi Chen, Samet Oymak)*](https://openreview.net/pdf?id=ebQXflQre5a), but we only use MNIST in imbalanced loss function design. 
+- The algorithm is also implemented on a (synthetic) federated minimax problem, i.e. the above federated bilevel problem with $g_i(x,y)=-f_i(x,y)$ for all $i \in [m]$, where 
 $$f_i(x,y)=-\frac{1}{2} ||y||^2 -b_i^\top y + y^\top A_i x + \frac{\lambda}{2} ||x||^2.$$
 This is a saddle-point formulation of $\min_{x \in \mathbb{R}^{d_1}} \frac{1}{2} ||\frac{1}{m} \sum_{i\in[m]} A_i x - b_i||^2$. 
 
